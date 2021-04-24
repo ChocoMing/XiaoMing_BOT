@@ -16,6 +16,7 @@ async def on_ready():
     print('------')
     channel = bot.get_channel(805239007754977280)
     await channel.send(":white_check_mark: BOT啟動完畢")
+    status_task.start()
 
 @tasks.loop(seconds=1)
 async def status_task():
@@ -117,4 +118,4 @@ async def ping(ctx):
     start = time.process_time()   
     await ctx.send(time.process_time() - start)
 
-bot.run("ODI4OTg5NDEyNDM1MDM0MTgz.YGxmjQ.Zp6nv-PdwtA4IjL8sI0cC5FtDys")
+bot.run("ODI4OTg5NDEyNDM1MDM0MTgz.YGxmjQ.eY51QkXlkEX7E_7Z5_9-xgLXq6M")
