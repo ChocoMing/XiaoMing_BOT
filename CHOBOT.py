@@ -4,9 +4,9 @@ import asyncio
 import time
 
 bot = commands.Bot(
-                Intents=discord.Intents.all(),
-                command_prefix='<',
-                description='一個很棒的機器人。')
+    Intents=discord.Intents.all(),
+    command_prefix='<',
+    description='一個很棒的機器人。')
 
 @bot.event
 async def on_ready():
