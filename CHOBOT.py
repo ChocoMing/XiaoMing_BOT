@@ -1,6 +1,7 @@
 import discord
-from discord.ext import commands
-from discord.ext import tasks
+from discord.ext import commands, tasks
+import asyncio
+import time
 
 bot = commands.Bot(
                 Intents=discord.Intents.all(),
@@ -118,4 +119,4 @@ async def ping(ctx):
     start = time.process_time()   
     await ctx.send(time.process_time() - start)
 
-bot.run("ODI4OTg5NDEyNDM1MDM0MTgz.YGxmjQ.eY51QkXlkEX7E_7Z5_9-xgLXq6M")
+bot.run("TOKEN")
