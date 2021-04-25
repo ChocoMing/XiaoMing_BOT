@@ -8,8 +8,22 @@ bot = commands.Bot(
     command_prefix='<',
     description='一個很棒的機器人。')
 
+prefix = "<"
+
+@tasks.loop(seconds=1)
+async def status_task():
+    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching, name=F"{prefix}指令"))
+    await asyncio.sleep(5)
+    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching, name="▌地震資訊"))
+    await asyncio.sleep(5)
+    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching,name="▌編寫:巧克明#8831"))
+    await asyncio.sleep(5)
+    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching,name="▌修改:ǝɹıɔ#0001"))
+    await asyncio.sleep(5)
+
 @bot.event
 async def on_ready():
+    status_task.start()
     print("啟動完畢！")
     print('Logged in as')
     print(bot.user.name)
@@ -17,27 +31,17 @@ async def on_ready():
     print('------')
     channel = bot.get_channel(805239007754977280)
     await channel.send(":white_check_mark: BOT啟動完畢")
-    status_task.start()
-
-@tasks.loop(seconds=1)
-async def status_task():
-    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching, name=F"{prefix}指令"))
-    await asyncio.sleep(5)
-    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching, name="地震資訊"))
-    await asyncio.sleep(5)
-    await bot.change_presence(status=discord.Status.idle,activity=discord.Activity(type=discord.ActivityType.watching,name="▌指令製作"))
-    await asyncio.sleep(5)
 
 @bot.command()
 async def 公告(ctx, arg = None):
-      if arg == "您沒有輸入內容":
-          await ctx.send("請輸入公告內容")
-      else:
-          await ctx.message.delete()
-          embed = discord.Embed(color=0xFF8800)
-          embed.add_field(name=":loudspeaker: 公告",value=arg, inline=False)
-          embed.set_footer(text=f"By.{ctx.message.author} ▌ 指令製作 猴子#3807", icon_url=f"{ctx.message.author.avatar_url}")
-          await ctx.send(embed = embed)
+    if arg == "您沒有輸入內容":
+        await ctx.send("請輸入公告內容")
+    else:
+        await ctx.message.delete()
+        embed = discord.Embed(color=0xFF8800)
+        embed.add_field(name=":loudspeaker: 公告",value=arg, inline=False)
+        embed.set_footer(text=f"By.{ctx.message.author} ▌ 指令製作 猴子#3807", icon_url=f"{ctx.message.author.avatar_url}")
+        await ctx.send(embed = embed)
 
 @bot.command()
 async def 狗腿(ctx):
@@ -75,11 +79,11 @@ async def 我就爛(ctx):
 async def 放棄(ctx):
     await ctx.send(f"<@{ctx.author.id}>表示放棄")
 
-#失敗
-@commands.Cog.listener()
-async def on_message(ctx,self, message):
-  if message.content == "喵":
-    await message.channel.send(":cat2: 喵嗚~~~")
+#OAO
+@bot.event
+async def on_message(message):
+    if message.content == "喵":
+        await message.channel.send(":cat2: 喵嗚~~~")
 
 @bot.command()
 async def TAG(ctx, *, arg):
@@ -115,7 +119,6 @@ async def 邀請連結(ctx):
 
 @bot.command()
 async def ping(ctx):
-    import time
     start = time.process_time()   
     await ctx.send(time.process_time() - start)
 
